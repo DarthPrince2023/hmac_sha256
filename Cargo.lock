@@ -126,6 +126,7 @@ name = "hmac_crate"
 version = "0.1.0"
 dependencies = [
  "hex",
+ "sha2",
  "sha256",
  "sha_256",
 ]

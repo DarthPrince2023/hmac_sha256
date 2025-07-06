@@ -1,43 +1,15 @@
-use sha256::digest;
-
-pub fn hmac_sha256(key: &'static [u8], message: &'static [u8]) -> String {
-    let mut outer_pad: Vec<u8> = Vec::new();
-    let mut inner_pad: Vec<u8> = Vec::new();
-    let mut key_appended_message: Vec<u8> = key.to_vec();
-    
-    while key_appended_message.len() % 64 != 0 {
-        key_appended_message.push(0);
-    }
-
-    for byte in &key_appended_message {
-        inner_pad.push(byte ^ 0x36);
-    }
-
-    for byte in message {
-        inner_pad.push(*byte);
-    }
-
-    let inner_hash = digest(inner_pad);
-    
-    for byte in &key.to_vec() {
-        outer_pad.push(byte ^ 0x5C);
-    }
-
-    for byte in inner_hash.as_bytes() {
-        outer_pad.push(*byte);
-    }
-
-    digest(outer_pad)
-    
-}
+pub mod algorithms;
 
 #[cfg(test)]
 mod tests {
-    use super::*;
+    use crate::algorithms::{hmac_sha_256::hmac_sha256, hmac_sha_512::hmac_sha512, };
 
     #[test]
     fn it_works() {
-        let result = hmac_sha256(b"Jefe", b"what do ya want for nothing?");
-        assert_eq!(result, "74d96e41a3cdf8ae8ee54014089166ccc2e3d7d76ea38fc0e0d936d2152a4007");
+        let sha256 = hmac_sha256(b"Jefe".to_vec(), b"what do ya want for nothing?");
+        let sha512 = hmac_sha512(b"Jefe".to_vec(), b"heaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+
+        assert_eq!(sha256, "74d96e41a3cdf8ae8ee54014089166ccc2e3d7d76ea38fc0e0d936d2152a4007");
+        assert_eq!(sha512, "99d12091f2112502c9062a3a072c463cf15240035acac6db13bba2556e36a3a902ae610401f7c2552ca82d624b880ec8d8adba7ca037aeb68448f09f5af5c92d");
     }
 }
