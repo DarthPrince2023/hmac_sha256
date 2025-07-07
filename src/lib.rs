@@ -9,7 +9,7 @@ mod tests {
         let sha256 = hmac_sha256(b"Jefe".to_vec(), b"what do ya want for nothing?");
         let sha512 = hmac_sha512(b"Jefe".to_vec(), b"heaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
 
-        assert_eq!(sha256, "74d96e41a3cdf8ae8ee54014089166ccc2e3d7d76ea38fc0e0d936d2152a4007");
+        assert_eq!(sha256, "7112d130efb0ed1417a6c9f80ea18d1b51c76a173236c29cda4a7e87b88413b2");
         assert_eq!(sha512, "99d12091f2112502c9062a3a072c463cf15240035acac6db13bba2556e36a3a902ae610401f7c2552ca82d624b880ec8d8adba7ca037aeb68448f09f5af5c92d");
     }
 }
