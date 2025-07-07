@@ -6,8 +6,15 @@ pub fn hmac_sha512(key: Vec<u8>, message: &'static [u8]) -> String {
     let mut key_appended_message = key.clone();
     let mut inner_pad_hasher = Sha512::new();
     let mut outter_pad_hasher = Sha512::new();
+
+    if key_appended_message.len() > 128 {
+        let mut hasher = Sha512::new();
+        hasher.update(key_appended_message);
+        key_appended_message = hasher.finalize().to_vec();
+    }
     
-    while key_appended_message.len() % 128 != 0 {
+    while key_appended_message.len() % 128 != 0 ||
+        key_appended_message.len() == 0 {
         key_appended_message.push(0);
     }
 
