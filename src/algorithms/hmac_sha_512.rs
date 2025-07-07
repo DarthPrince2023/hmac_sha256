@@ -1,17 +1,18 @@
 use sha2::{Sha512, Digest};
 
-pub fn hmac_sha512(key: Vec<u8>, message: &'static [u8]) -> String {
+pub fn hmac_sha512(mut key: Vec<u8>, message: &'static [u8]) -> String {
     let mut outer_pad: Vec<u8> = Vec::new();
     let mut inner_pad: Vec<u8> = Vec::new();
-    let mut key_appended_message = key.clone();
     let mut inner_pad_hasher = Sha512::new();
     let mut outter_pad_hasher = Sha512::new();
 
-    if key_appended_message.len() > 128 {
+    if key.len() > 128 {
         let mut hasher = Sha512::new();
-        hasher.update(key_appended_message);
-        key_appended_message = hasher.finalize().to_vec();
+        hasher.update(key);
+        key = hasher.finalize().to_vec();
     }
+    
+    let mut key_appended_message = key.clone();
     
     while key_appended_message.len() % 128 != 0 ||
         key_appended_message.len() == 0 {
