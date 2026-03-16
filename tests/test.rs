@@ -5,7 +5,7 @@ fn test_rfc4231_sha256() {
     let key = vec![0x0b; 20];
     let message = b"Hi There";
     let expected = "b0344c61d8db38535ca8afceaf0bf12b881dc200c9833da726e9376c2e32cff7";
-    assert_eq!(hmac_sha256(key, message), expected);
+    assert_eq!(hmac_sha256(key, message.into()), expected);
 }
 
 #[test]
@@ -21,7 +21,7 @@ fn test_empty_key_message_sha256() {
     let key = vec![];
     let message = b"";
     let expected = "b613679a0814d9ec772f95d778c35fc5ff1697c493715653c6c712144292c5ad";
-    assert_eq!(hmac_sha256(key.clone(), message), expected);
+    assert_eq!(hmac_sha256(key.clone(), message.into()), expected);
 }
 
 #[test]
@@ -37,7 +37,7 @@ fn test_long_key_sha256() {
     let key = vec![0x41; 100];
     let message = b"Test message";
     let expected = "a950e7a98d0cc5f64d8764894463f0d8209f9901365bb01220a500664ca67c40";
-    assert_eq!(hmac_sha256(key, message), expected);
+    assert_eq!(hmac_sha256(key, message.into()), expected);
 }
 
 #[test]
@@ -53,7 +53,7 @@ fn test_unicode_input_sha256() {
     let key = b"key".to_vec();
     let message = "προγραμματισμός".as_bytes();
     let expected = "c8ff9a1520589850b90e076598d67121d9e6c95569103f8c3c6a08ee36ea5deb";
-    assert_eq!(hmac_sha256(key, message), expected);
+    assert_eq!(hmac_sha256(key, message.into()), expected);
 }
 
 #[test]

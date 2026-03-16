@@ -7,7 +7,7 @@ mod tests {
     #[test]
     fn it_works() {
         println!("{}", hex::encode("3732313031313038313038313131303030"));
-        let sha256 = hmac_sha256(b"Jefe".to_vec(), b"what do ya want for nothing?");
+        let sha256 = hmac_sha256(b"Jefe".to_vec(), b"what do ya want for nothing?".to_vec());
         let sha5123 = hmac_sha512(b"Jefe".to_vec(), b"heaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
         println!("{:?}", sha512("Hello".to_string()));
         assert_eq!(sha256, "7112d130efb0ed1417a6c9f80ea18d1b51c76a173236c29cda4a7e87b88413b2");
