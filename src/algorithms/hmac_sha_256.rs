@@ -1,6 +1,6 @@
 use sha2::{Sha256, Digest};
 
-pub fn hmac_sha256(mut key: Vec<u8>, message: &'static [u8]) -> String {
+pub fn hmac_sha256(mut key: Vec<u8>, message: &[u8]) -> String {
     // The outter pad is going to store the padded key,
     // with the hashed bytes for the inner pad, concatenated to the message bytes
     let mut outter_pad: Vec<u8> = Vec::new();
