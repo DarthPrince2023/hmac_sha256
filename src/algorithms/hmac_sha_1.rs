@@ -10,7 +10,7 @@ pub fn sha1(data: Vec<u8>) -> Vec<u8> {
     sha1
 }
 
-pub fn hmac_sha1(mut key: Vec<u8>, message: String) -> Vec<u8> {
+pub fn hmac_sha1(mut key: Vec<u8>, message: Vec<u8>) -> Vec<u8> {
     // The outter pad is going to store the padded key,
     // with the hashed bytes for the inner pad, concatenated to the message bytes
     let mut outter_pad: Vec<u8> = Vec::new();
@@ -34,7 +34,7 @@ pub fn hmac_sha1(mut key: Vec<u8>, message: String) -> Vec<u8> {
     }
 
     // Finally concatenate the message bytes to the ipad
-    for byte in message.as_bytes().to_vec() {
+    for byte in message{
         inner_pad.push(byte);
     }
 
