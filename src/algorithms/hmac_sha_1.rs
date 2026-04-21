@@ -3,9 +3,7 @@ use sha::{sha1::Sha1, utils::{Digest, DigestExt}};
 pub fn sha1(data: Vec<u8>) -> Vec<u8> {
     let mut hasher = Sha1::default();
     let sha1 = hasher.digest(data.as_slice())
-        .to_hex()
-        .as_bytes()
-        .to_vec();
+        .to_bytes();
 
     sha1
 }
@@ -22,7 +20,7 @@ pub fn hmac_sha1(mut key: Vec<u8>, message: Vec<u8>) -> Vec<u8> {
 
     let mut key_appended_message = key.clone();
         
-    // Make sure the key block is 512 bytes by padding it out with 0s
+    // Make sure the key block is 160 bits by padding it out with 0s
     while key_appended_message.len() % 64 != 0 ||
         key_appended_message.len() == 0 {
         key_appended_message.push(0);
@@ -34,7 +32,7 @@ pub fn hmac_sha1(mut key: Vec<u8>, message: Vec<u8>) -> Vec<u8> {
     }
 
     // Finally concatenate the message bytes to the ipad
-    for byte in message{
+    for byte in message {
         inner_pad.push(byte);
     }
 
